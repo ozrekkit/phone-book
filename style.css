@@ -1,0 +1,37 @@
+#contact-board {
+    padding-top: 20px;
+}
+
+.contact {
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+}
+.contact .header {
+    height: 25px;
+}
+
+.contact .maine {
+    height: 100px;
+}
+.icon-beard-man {
+    background-image: url("assets/images/beard_man.png");
+}
+
+.icon-botan-man {
+    background-image: url("assets/images/botan_man.png");
+}
+
+.icon-ginger-beard {
+    background-image: url("assets/images/ginger_beard.png");
+}
+
+.icon {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.container-icon input {
+    position: absolute;
+}
