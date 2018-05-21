@@ -11,17 +11,44 @@ contactForm.addEventListener('submit', function (event) {
 });
 
 function createMain(contact) {
-    var main = document.createElement('div');
+    var contactName = document.createElement('div');
+    contactName.setAttribute('class', 'contact-name');
+    contactName.innerHTML = "Contact Name: "+JSON.parse(localStorage.getItem('contacts')).name;
+
+    var contactNumber = document.createElement('div');
+    contactNumber.setAttribute('class', 'contact-number');
+    contactNumber.innerHTML = "Phone Number is - "+JSON.parse(localStorage.getItem('contacts')).number;
+
+    var main = document.createElement('main');
     main.setAttribute('class', 'main');
-    main.innerHTML = JSON.parse(localStorage.getItem('contacts')).number;
+    main.appendChild(contactName);
+    main.appendChild(contactNumber);
     return main;
 
 }
 
 function createHeader(contact) {
+    var spanPencil = document.createElement('span');
+    spanPencil.setAttribute('class', 'glyphicon glyphicon-pencil');
+    spanPencil.setAttribute('aria-hidden', 'true');
+
+    var spanTrash = document.createElement('span');
+    spanTrash.setAttribute('class', 'glyphicon glyphicon-trash');
+    spanTrash.setAttribute('aria-hidden', 'true');
+
+    var controls = document.createElement('div');
+    controls.setAttribute('class', 'controls pull-right');
+    controls.appendChild(spanPencil);
+    controls.appendChild(spanTrash);
+
+    var date = document.createElement('date');
+    date.setAttribute('class', 'date');
+    date.innerHTML = 'Date: 12-09-2018';
+
     var header = document.createElement('div');
     header.setAttribute('class', 'header');
-    header.innerHTML = contact.name;
+    header.appendChild(controls);
+    header.appendChild(date);
     return header;
 }
 
@@ -51,7 +78,7 @@ function renderContact(contact) {
     var contact = document.createElement('div');
     contact.setAttribute('class', 'contact');
     contact.appendChild(createHeader(contact));
-    contact.appendChild(createMain());
+    contact.appendChild(createMain(contact));
     var contactContainer = getContactRow();
     contactContainer.appendChild(contact);
 }
