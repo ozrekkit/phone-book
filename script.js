@@ -19,10 +19,17 @@ function createMain(contact) {
     contactNumber.setAttribute('class', 'contact-number');
     contactNumber.innerHTML = "Phone Number is - "+JSON.parse(localStorage.getItem('contacts')).number;
 
+    var image = document.createElement('img');
+    var photo = JSON.parse(localStorage.getItem('contacts')).photo;
+    image.setAttribute('class', 'controls pull-right');
+    image.setAttribute('name', 'img');
+    image.setAttribute('src', photo);
+
     var main = document.createElement('main');
     main.setAttribute('class', 'main');
     main.appendChild(contactName);
     main.appendChild(contactNumber);
+    main.appendChild(image);
     return main;
 
 }
@@ -92,7 +99,7 @@ function Contact(name, number) {
     this.id = getId();
     this.name = name;
     this.number = number;
-    this.photo = '/assets/images/beard_man.jpg';
+    this.photo = 'assets/images/ginger_beard.png';
 }
 
 function getId() {
