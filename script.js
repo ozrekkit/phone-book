@@ -4,8 +4,8 @@ contactForm.addEventListener('submit', function (event) {
     var form = event.currentTarget;
     var name = form.name.value;
     var number = form.number.value;
-    var contact = new Contact(name, number);
-    console.log(contact);
+    var avatar = form.avatar.value;
+    var contact = new Contact(name, number, avatar);
     saveContact(contact);
     renderContact(contact);
 });
@@ -13,17 +13,16 @@ contactForm.addEventListener('submit', function (event) {
 function createMain(contact) {
     var contactName = document.createElement('div');
     contactName.setAttribute('class', 'contact-name');
-    contactName.innerHTML = "Contact Name: "+JSON.parse(localStorage.getItem('contacts')).name;
+    contactName.innerHTML = "Contact Name: " + contact.name;
 
     var contactNumber = document.createElement('div');
     contactNumber.setAttribute('class', 'contact-number');
-    contactNumber.innerHTML = "Phone Number is - "+JSON.parse(localStorage.getItem('contacts')).number;
+    contactNumber.innerHTML = "Phone Number is - " + contact.number;
 
     var image = document.createElement('img');
-    var photo = JSON.parse(localStorage.getItem('contacts')).photo;
     image.setAttribute('class', 'controls pull-right');
     image.setAttribute('name', 'img');
-    image.setAttribute('src', photo);
+    image.setAttribute('src', contact.photo);
 
     var main = document.createElement('main');
     main.setAttribute('class', 'main');
@@ -34,7 +33,7 @@ function createMain(contact) {
 
 }
 
-function createHeader(contact) {
+function createHeader() {
     var spanPencil = document.createElement('span');
     spanPencil.setAttribute('class', 'glyphicon glyphicon-pencil');
     spanPencil.setAttribute('aria-hidden', 'true');
@@ -82,24 +81,25 @@ function getContactRow() {
 }
 
 function renderContact(contact) {
-    var contact = document.createElement('div');
-    contact.setAttribute('class', 'contact');
-    contact.appendChild(createHeader(contact));
-    contact.appendChild(createMain(contact));
+    var contactElement = document.createElement('div');
+    contactElement.className = 'contact';
+    contactElement.appendChild(createHeader());
+    contactElement.appendChild(createMain(contact));
     var contactContainer = getContactRow();
-    contactContainer.appendChild(contact);
+    contactContainer.appendChild(contactElement);
 }
 
 function saveContact(contact) {
     var contacts = {};
-    localStorage.setItem('contacts', JSON.stringify(contacts[contact.id] = contact));
+    contacts[contact.id] = contact;
+    localStorage.setItem('contacts', JSON.stringify(contacts));
 }
 
-function Contact(name, number) {
+function Contact(name, number, photo) {
     this.id = getId();
     this.name = name;
     this.number = number;
-    this.photo = 'assets/images/ginger_beard.png';
+    this.photo = photo;
 }
 
 function getId() {
